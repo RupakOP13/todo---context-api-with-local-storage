@@ -1,0 +1,14 @@
+{
+  "name": "todocontentjsx",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix todocontent run dev",
+    "build": "npm --prefix todocontent run build",
+    "preview": "npm --prefix todocontent run preview",
+    "lint": "npm --prefix todocontent run lint"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
