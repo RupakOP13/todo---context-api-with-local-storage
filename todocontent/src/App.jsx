@@ -1,29 +1,25 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { useTodoContext } from './contexts/TodoContext.jsx';
 import Todo from './components/Todo.jsx';
+import {useDispatch, useSelector} from 'react-redux';
+import {addTodo} from './features/todoSlice.js';
 
 function App() {
  
-  const {todos, setTodos, handleToggle, handleDelete, handleUpdate} = useTodoContext();
+  // const {todos, setTodos} = useTodoContext();
 const [Search,setSearch]=useState("");
+const dispatch=useDispatch();
+const todos=useSelector((state)=>state.todos);
 
 // Save to localStorage whenever todos change
 useEffect(() => {
   localStorage.setItem("todos", JSON.stringify(todos));
-}, [todos]);
+}, [todos]);    //tobe edited
 
 const handleSubmit=(e)=>{
   e.preventDefault();
   if(Search.trim()!==""){
-    const newTodo={
-      id:Date.now(),
-      text:Search,
-      completed:false
-    };
-    setTodos([...todos,newTodo]);
+    dispatch(addTodo(Search));
     setSearch("");
   }
 }
@@ -55,9 +51,6 @@ const handleSubmit=(e)=>{
                             <Todo 
                               key={todo.id} 
                               todo={todo} 
-                              onToggle={handleToggle}
-                              onDelete={handleDelete}
-                              onUpdate={handleUpdate}
                             />
                         ))}
                     </div>

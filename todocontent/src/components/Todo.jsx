@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
- 
+import { useDispatch } from 'react-redux';
+import { toggleTodo, deleteTodo as deleteTodoAction, updateTodo } from '../features/todoSlice.js';
 
 
-function Todo({todo, onToggle, onDelete, onUpdate}) {
+function Todo({todo}) {
     const [isTodoEditable, setIsTodoEditable] = useState(false);
     const [todoMsg, setTodoMsg] = useState(todo.text);
+    const dispatch = useDispatch();
+    // const { handleToggle, handleDelete, handleUpdate} = useTodoContext();
 
     const toggleCompleted = () => {
-        if (onToggle) onToggle(todo.id);
+         dispatch(toggleTodo(todo.id));
     };
 
     const editTodo = () => {
-        if (onUpdate) onUpdate(todo.id, todoMsg);
+            dispatch(updateTodo({id: todo.id, text: todoMsg}));
         setIsTodoEditable(false);
     };
 
     const deleteTodo = () => {
-        if (onDelete) onDelete(todo.id);
+         dispatch(deleteTodoAction(todo.id));
     };
 
     return (
